@@ -75,10 +75,7 @@ export class OrderComponent implements OnInit {
       .subscribe(res => {
       console.log(res);
       this.changed = false;
-      this.order.status = [...this.order.status,
-        new Status(res.id, res.status.id, res.created_at,
-          res.status.description, res.comment)
-      ];
+      this.order.status = [...this.order.status, res];
     });
   }
 

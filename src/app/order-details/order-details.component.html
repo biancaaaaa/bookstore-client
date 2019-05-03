@@ -43,7 +43,7 @@
           {{status.status.description}}
         </td>
         <td>
-          {{status.changedAt}}
+          {{status['created_at']}}
         </td>
         <td>
           {{!status.comment || status.comment === '' ? '-' : status.comment}}

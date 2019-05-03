@@ -23,7 +23,7 @@ export class OrderDetailsComponent implements OnInit {
    */
   sortStatus(status: Status[]) {
     return status.sort((a: Status, b: Status) =>
-      +new Date(b.changedAt).getTime() - +new Date(a.changedAt).getTime()
+      +new Date(b['created_at']).getTime() - +new Date(a['created_at']).getTime()
     );
   }
 
