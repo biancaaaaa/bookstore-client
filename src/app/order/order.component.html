@@ -1,0 +1,45 @@
+<div class="sixteen wide column">
+  <div class="ui grid">
+    <div class="row">
+      <div class="twelve wide column">
+        <h4>Bestellung vom {{order.orderedAt}}</h4>
+        <div>
+          Status: {{getCurrentOrderStatus(order.status, 'string')}}
+        </div>
+        <p>
+          Bestellnummer: {{order.id}}<br>
+          Lieferung an:
+          {{order.shipping_address.address1}}
+          {{order.shipping_address.address2}},
+          {{order.shipping_address.postal_code}}
+          {{order.shipping_address.city}}<br>
+          Anzahl: {{getTotalAmount()}}
+        </p>
+        <button class="ui button" (click)="showDetailsOrder(!showDetails)">
+          {{showDetails ? 'Weniger anzeigen' : 'Mehr anzeigen'}}
+        </button>
+      </div>
+      <div class="four wide right aligned column">
+        <h5>Gesamtsumme: {{order.totalPreTax | currency}}</h5>
+        <form *ngIf="isAdmin()" [formGroup]="statusForm" (ngSubmit)="updateStatus()" class="ui form">
+          <div *ngIf="changed" class="field">
+            <label for="comment">Kommentar:
+            </label>
+            <textarea id="comment" formControlName="comment"></textarea>
+          </div>
+          <div class="field">
+            <label for="status">Status: </label>
+            <select id="status" formControlName="status">
+              <option value="1">Offen</option>
+              <option value="2">Bezahlt</option>
+              <option value="3">Versendet</option>
+              <option value="4">Storniert</option>
+            </select>
+          </div>
+          <button *ngIf="changed" class="tiny ui button red">Aktualisieren</button>
+        </form>
+      </div>
+    </div>
+    <bs-order-details class="row" *ngIf="showDetails" [order]="order"></bs-order-details>
+  </div>
+</div>

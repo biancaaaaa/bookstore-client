@@ -1,0 +1,50 @@
+<div *ngIf="!orderCompleted">
+  <h3>Bestellübersicht</h3>
+  <h4>Artikel im Warenkorb</h4>
+  <table class="ui table">
+    <thead>
+    <tr>
+      <th>Artikel</th>
+      <th>Anzahl</th>
+      <th>Preis</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of order.books; let i = index">
+      <td>
+        <div class="ui grid middle aligned">
+          <div class="two wide column">
+            <img src="{{item.book.images[0]?.url}}" alt="{{item.book.images[0]?.title}}"
+                 class="ui image mini middle aligned padded">
+          </div>
+          <div class="eight wide column">
+            <a [routerLink]="'../books/' + item.book.isbn">{{item.book.title}}</a>
+          </div>
+        </div>
+      </td>
+      <td>
+        {{item.amount}}
+      </td>
+      <td class="ui right aligned">
+        {{item.book.price * item.amount * 1.1 | currency}}
+      </td>
+    </tr>
+    <tr class="ui medium header">
+      <td>Gesamtsumme</td>
+      <td class="ui right aligned" colspan="2">{{total * 1.1 | currency}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <h4>Lieferadresse: </h4>
+  <p>
+    {{order.shipping_address.address1}} {{order.shipping_address.address2}}<br>
+    {{order.shipping_address.postal_code}} {{order.shipping_address.city}}<br>
+    {{order.shipping_address.country}}
+  </p>
+  <button class="ui button red right floated" (click)="placeOrder()">Bestellen</button>
+  <button class="ui button right floated" (click)="navigateBack.emit()">Zurück</button>
+</div>
+<div *ngIf="orderCompleted">
+  <h3>Vielen Dank für deine Bestellung!</h3>
+  <p>Den aktuellen Status deiner Bestellung kannst du <a [routerLink]="'../myOrders'">hier</a> einsehen.</p>
+</div>

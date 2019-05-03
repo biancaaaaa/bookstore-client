@@ -1,0 +1,6 @@
+<h1>Bestellungen</h1>
+<p>Das ist die Übersicht deiner Bestellungen.</p>
+<div class="ui vertically divided grid">
+  <bs-order *ngFor="let order of sortOrder()" class="row"
+            [order]="order"></bs-order>
+</div>

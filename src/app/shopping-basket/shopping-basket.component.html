@@ -1,0 +1,49 @@
+<h1>Warenkorb</h1>
+<div *ngIf="items.length > 0">
+  <table class="ui table">
+    <thead>
+    <tr>
+      <th>Artikel</th>
+      <th>Anzahl</th>
+      <th>Preis</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items; let i = index" class="ui list">
+      <td>
+        <div class="ui grid middle aligned">
+          <div class="one wide column">
+            <i (click)="deleteItem(item.book.isbn)" class="trash alternate icon"></i>
+          </div>
+          <div class="two wide column">
+            <img src="{{item.book.images[0]?.url}}" alt="{{item.book.images[0]?.title}}"
+                 class="ui image mini middle aligned padded">
+          </div>
+          <div class="eight wide column">
+            <a [routerLink]="'../books/' + item.book.isbn">{{item.book.title}} </a>
+          </div>
+        </div>
+      </td>
+      <td>
+        <form [formGroup]="itemForms[i]" (ngSubmit)="setAmount(item.book.isbn, i)" class="ui form">
+          <div class="three wide field">
+            <label><input type="number" formControlName="amount" min="1"></label>
+            <button *ngIf="changed[i]" class="ui button red" type="submit">Aktualisieren</button>
+          </div>
+        </form>
+      </td>
+      <td class="ui right aligned">
+        {{item.book.price * item.amount * 1.1 | currency }}
+      </td>
+    </tr>
+    <tr class="ui medium header">
+      <td>Gesamtsumme</td>
+      <td class="ui right aligned" colspan="2">{{getTotalAmount() | currency}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <a [routerLink]="'../checkout'" class="ui button red right floated">Zur Kasse</a>
+</div>
+<div *ngIf="items.length < 1">
+  <p>Keine Artikel im Warenkorb.</p>
+</div>

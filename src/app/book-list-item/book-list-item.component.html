@@ -1,0 +1,18 @@
+<div class="middle aligned right floated content">
+  <div class="header">{{book.price * 1.1 | currency}}</div>
+  <div class="metadata">inkl. USt</div>
+</div>
+<img class="ui tiny image"
+     *ngIf="book?.images[0]"
+     [src]="book?.images[0]?.url"
+     alt="{{book.title}}}"
+>
+<div class="content">
+    <div class="header">{{book.title}}</div>
+    <div class="description">{{book.subtitle}}</div>
+    <div class="metadata">
+                <span *ngFor="let author of book.authors; last as l">
+                    {{author.firstName}} {{author.lastName}}<span *ngIf="!l">, </span>
+                </span>
+    </div>
+</div>

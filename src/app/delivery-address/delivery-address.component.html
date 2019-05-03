@@ -1,0 +1,41 @@
+<h3>Lieferung</h3>
+<form *ngIf="!addressExists || isUpdatingAddress" class="ui large form" [formGroup]="addressForm"
+      (ngSubmit)="submitForm()">
+  <p>Bitte gib deine Lieferaddresse an, um fortzufahren.</p>
+  <div class="field">
+    <label for="address1">Straße</label>
+    <input id="address1" formControlName="address1">
+  </div>
+  <div class="field">
+    <label for="address2">Hausnummer</label>
+    <input id="address2" formControlName="address2">
+  </div>
+  <div class="field">
+    <label for="postal_code">Postleitzahl</label>
+    <input id="postal_code" formControlName="postal_code">
+  </div>
+  <div class="field">
+    <label for="city">Stadt</label>
+    <input id="city" formControlName="city">
+  </div>
+  <div class="field">
+    <label for="country">Land</label>
+    <input id="country" formControlName="country">
+  </div>
+  <button type="submit" class="ui button red right floated">Weiter</button>
+  <button *ngIf="isUpdatingAddress" class="ui button right floated" (click)="setToUpdateMode(false)">Abbrechen</button>
+</form>
+
+<div *ngIf="addressExists && !isUpdatingAddress">
+  <p>
+    {{address.address1}} {{address.address2}}<br>
+    {{address.postal_code}} {{address.city}}<br>
+    {{address.country}}<br>
+  </p>
+  <p>
+    <a (click)="setToUpdateMode(true)">Adresse bearbeiten</a>
+  </p>
+  <p>
+    <button class="ui button red right floated" (click)="nextStep.emit()">Bestätigen und weiter</button>
+  </p>
+</div>

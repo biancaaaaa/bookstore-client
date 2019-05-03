@@ -1,0 +1,29 @@
+<div class="ui right aligned grid">
+  <div class="row">
+    <div class="left floated left aligned six wide column">
+      <h1>Bestellungen verwalten</h1>
+    </div>
+    <div *ngIf="selectedUser" class="right floated six wide column">
+      <button class="ui button" (click)="unsetUser()">Zurück</button>
+    </div>
+  </div>
+</div>
+<div class="ui list selection" *ngIf="!selectedUser">
+  <div class="item" *ngFor="let user of shopUsers; let i = index" (click)="setSelectedUser(i)">
+    <img alt="{{user.lastName}}" class="ui avatar image"
+         src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png">
+    <div class="content">
+      <div class="header">{{user.firstName}} {{user.lastName}}</div>
+      Anzahl Bestellungen: {{getUserOrders(user.id).length}}
+    </div>
+  </div>
+</div>
+<div *ngIf="selectedUser" class="ui vertically divided grid">
+  <div class="row">
+    <div class="sixteen wide column">
+      <h3>{{selectedUser.firstName}} {{selectedUser.lastName}}'s orders</h3>
+    </div>
+  </div>
+  <bs-order *ngFor="let order of getUserOrders(selectedUser.id); let i = index" class="row"
+            [order]="order"></bs-order>
+</div>

@@ -1,0 +1,25 @@
+<div *ngIf="!authService.isLoggedIn()">
+  <p>Bitte melde dich an um fortzufahren!</p>
+  <bs-login [atCheckout]="true"></bs-login>
+</div>
+<div *ngIf="authService.isLoggedIn()">
+  <h1>Checkout</h1>
+  <div class="ui steps">
+    <div *ngFor="let step of steps"
+         class="step {{step.active && 'active'}} {{step.disabled && 'disabled'}} {{step.completed && 'completed'}}">
+      <i class="{{step.icon}} icon"></i>
+      <div class="content">
+        <div class="title">{{step.title}}</div>
+        <div *ngIf="step.description" class="description">{{step.description}}</div>
+      </div>
+    </div>
+  </div>
+
+  <bs-delivery-address *ngIf="getActiveStep() === 'Lieferung'"
+                       (nextStep)="setActiveStep(1, 0)"
+  ></bs-delivery-address>
+  <bs-order-overview *ngIf="getActiveStep() === 'Bestellung bestätigen'"
+                     (stepCompleted)="setCompleted(1)"
+                     (navigateBack)="setFirstStep(0, 1)"
+  ></bs-order-overview>
+</div>

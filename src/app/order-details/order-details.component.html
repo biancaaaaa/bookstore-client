@@ -1,0 +1,55 @@
+<div class="sixteen wide column">
+  <div class="ui placeholder segment">
+    <h4>Bestelldetails: </h4>
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th>Artikel</th>
+        <th>Anzahl</th>
+        <th>Preis</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of order.books">
+        <td>
+          <a [routerLink]="'../books/' + item.isbn">{{item.title}}</a>
+        </td>
+        <td>
+          {{item.pivot.amount}}
+        </td>
+        <td class="ui right aligned">
+          {{item.pivot.orderPrice * item.pivot.amount * 1.1 | currency}}
+        </td>
+      </tr>
+      <tr class="ui">
+        <td><h5>Gesamtsumme</h5></td>
+        <td></td>
+        <td class="ui right aligned" colspan="2"><h5>{{order.totalPreTax | currency}}</h5></td>
+      </tr>
+      </tbody>
+    </table>
+    <h5>Bestellverlauf</h5>
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th>Bezeichnung</th>
+        <th>Geändert am</th>
+        <th>Anmerkung</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let status of sortStatus(order.status)">
+        <td>
+          {{status.status.description}}
+        </td>
+        <td>
+          {{status.changedAt}}
+        </td>
+        <td>
+          {{!status.comment || status.comment === '' ? '-' : status.comment}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

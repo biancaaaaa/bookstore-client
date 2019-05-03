@@ -1,0 +1,15 @@
+<form class="ui form" [formGroup]="cartForm" (ngSubmit)="addToCart()">
+  <div class="field">
+    <label for="amount">Anzahl</label>
+    <input id="amount" type="number" formControlName="amount">
+  </div>
+  <button type="submit" name="add-to-cart-btn" class="ui mini red button">
+    <i class="shop icon"></i>
+    In den Warenkorb
+  </button>
+  <div class="ui {{success && 'visible'}} tiny success message">
+    <div class="header">
+      Artikel wurde in den Warenkorb gelegt!
+    </div>
+  </div>
+</form>
